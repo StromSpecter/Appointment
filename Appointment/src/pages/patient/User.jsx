@@ -19,7 +19,7 @@ const User = ({ userData }) => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://localhost:5001/doctors");
+        const response = await fetch("${API_URL}/doctors");
         if (response.ok) {
           const data = await response.json();
           setDoctors(data);
@@ -71,7 +71,7 @@ const User = ({ userData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5001/upload-queue", {
+      const response = await fetch("${API_URL}/upload-queue", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

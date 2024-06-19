@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Bar, Pie } from "react-chartjs-2";
 import "chart.js/auto";
+import { API_URL } from "../../../cons";
 
 const PieChart = ({ doctors, appointments }) => {
   const appointmentCounts = {};
@@ -65,9 +66,7 @@ const Dashboard = () => {
     const fetchPatients = async () => {
       try {
         // Lakukan pengambilan data pasien dari server dengan role = user
-        const response = await fetch(
-          "http://localhost:5001/get-user?role=user"
-        );
+        const response = await fetch(`${API_URL}/get-user?role=user`);
         if (response.ok) {
           const data = await response.json();
           // Simpan data pasien ke dalam state
@@ -82,7 +81,7 @@ const Dashboard = () => {
 
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://localhost:5001/doctors");
+        const response = await fetch(`${API_URL}/doctors`);
         if (response.ok) {
           const data = await response.json();
           // Simpan data dokter ke dalam state
@@ -98,7 +97,7 @@ const Dashboard = () => {
     const fetchAppointments = async () => {
       try {
         // Lakukan pengambilan data janji temu dari server
-        const response = await fetch("http://localhost:5001/all-queue");
+        const response = await fetch(`${API_URL}/all-queue`);
         if (response.ok) {
           const data = await response.json();
           // Simpan data janji temu ke dalam state

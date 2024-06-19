@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../../../cons";
 
 const Appointments = () => {
   const [unfinishedAppointments, setUnfinishedAppointments] = useState([]);
@@ -6,7 +7,7 @@ const Appointments = () => {
 
   useEffect(() => {
     // Ambil data janji temu dari backend ketika komponen dimuat
-    fetch("http://localhost:5001/all-queue")
+    fetch("${API_URL}/all-queue")
       .then((response) => response.json())
       .then((data) => {
         // Pisahkan data yang belum selesai dan memiliki status pending
@@ -33,7 +34,7 @@ const Appointments = () => {
 
   const updateAppointmentStatus = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5001/update-queue/${id}`, {
+      const response = await fetch(`${API_URL}/update-queue/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +79,7 @@ const Appointments = () => {
 
     if (isConfirmed) {
       // Kirim permintaan ke backend untuk menghapus data dari database
-      fetch(`http://localhost:5001/queue/${id}`, {
+      fetch(`${API_URL}/queue/${id}`, {
         method: "DELETE",
       })
         .then((response) => {
@@ -128,7 +129,10 @@ const Appointments = () => {
           </thead>
           <tbody>
             {unfinishedAppointments.map((appointment, index) => (
-              <tr key={appointment._id} className={index % 2 === 0 ? "bg-violet-100" : "bg-white"}>
+              <tr
+                key={appointment._id}
+                className={index % 2 === 0 ? "bg-violet-100" : "bg-white"}
+              >
                 <td className="p-3">{index + 1}</td>
                 <td className="p-3">{appointment.patientName}</td>
                 <td className="p-3">{appointment.doctorName}</td>
@@ -172,7 +176,10 @@ const Appointments = () => {
           </thead>
           <tbody>
             {finishedAppointments.map((appointment, index) => (
-              <tr key={appointment._id} className={index % 2 === 0 ? "bg-violet-100" : "bg-white"}>
+              <tr
+                key={appointment._id}
+                className={index % 2 === 0 ? "bg-violet-100" : "bg-white"}
+              >
                 <td className="p-3">{index + 1}</td>
                 <td className="p-3">{appointment.patientName}</td>
                 <td className="p-3">{appointment.doctorName}</td>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { PiPlus } from "react-icons/pi";
+import { API_URL } from "../../../cons";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -22,7 +23,7 @@ const Patients = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await fetch("http://localhost:5001/get-user");
+        const response = await fetch(`${API_URL}/get-user`);
         if (response.ok) {
           const data = await response.json();
           setPatients(data);
@@ -36,7 +37,7 @@ const Patients = () => {
 
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://localhost:5001/doctors");
+        const response = await fetch(`${API_URL}/doctors`);
         if (response.ok) {
           const data = await response.json();
           setDoctors(data);
@@ -77,7 +78,7 @@ const Patients = () => {
     formData.append("image", file);
 
     try {
-      const response = await fetch("http://localhost:5001/doctors", {
+      const response = await fetch("${API_URL}/doctors", {
         method: "POST",
         body: formData,
       });
@@ -123,12 +124,9 @@ const Patients = () => {
     if (confirmDelete) {
       try {
         // Delete patient from server
-        const response = await fetch(
-          `http://localhost:5001/delete-user/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`${API_URL}/delete-user/${id}`, {
+          method: "DELETE",
+        });
         if (response.ok) {
           // Remove deleted patient from state
           setPatients(patients.filter((patient) => patient._id !== id));
@@ -148,7 +146,7 @@ const Patients = () => {
     if (confirmDelete) {
       try {
         // Delete doctor from server
-        const response = await fetch(`http://localhost:5001/doctors/${id}`, {
+        const response = await fetch(`${API_URL}/doctors/${id}`, {
           method: "DELETE",
         });
         if (response.ok) {

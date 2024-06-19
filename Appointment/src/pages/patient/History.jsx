@@ -47,7 +47,7 @@ const History = () => {
     // Fetch appointment data from server
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:5001/all-queue");
+        const response = await fetch("${API_URL}/all-queue");
         if (response.ok) {
           const data = await response.json();
           setAppointments(data);
