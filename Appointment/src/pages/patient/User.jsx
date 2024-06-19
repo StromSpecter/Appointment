@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import FormAppointment from "../../components/FormAppointment";
 import PropTypes from "prop-types";
+import { API_URL } from "../../../cons";
 
 const User = ({ userData }) => {
   const [doctors, setDoctors] = useState([]);
@@ -19,7 +20,7 @@ const User = ({ userData }) => {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("${API_URL}/doctors");
+        const response = await fetch(`${API_URL}/doctors`);
         if (response.ok) {
           const data = await response.json();
           setDoctors(data);
@@ -99,13 +100,13 @@ const User = ({ userData }) => {
         {doctors.map((doctor) => (
           <div
             key={doctor.id}
-            className="bg-violet-100 rounded-lg shadow-md p-4 cursor-pointer"
+            className="p-4 rounded-lg shadow-md cursor-pointer bg-violet-100"
             onClick={() => handleCardClick(doctor)}
           >
             <img
               src={doctor.url} // Gunakan properti url untuk mengambil gambar
               alt={doctor.name}
-              className="w-full max-h-42 object-cover rounded-md mb-4"
+              className="object-cover w-full mb-4 rounded-md max-h-42"
               style={{ objectFit: "cover" }}
             />
             <div className="text-lg font-semibold">{doctor.name}</div>
